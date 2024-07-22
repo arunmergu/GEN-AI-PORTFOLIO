@@ -1,0 +1,7 @@
+vertexai
+pyaudio
+google-cloud-translate
+google-cloud-speech
+googletrans
+audioport
+google-cloud-texttospeech
