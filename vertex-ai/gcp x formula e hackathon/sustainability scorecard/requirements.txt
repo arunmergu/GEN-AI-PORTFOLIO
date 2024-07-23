@@ -1,4 +1,0 @@
-vertexai
-google-cloud
-streamlit
-pyyaml
