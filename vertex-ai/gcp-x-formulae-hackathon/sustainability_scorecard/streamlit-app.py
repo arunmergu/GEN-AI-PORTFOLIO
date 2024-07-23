@@ -5,11 +5,19 @@ import vertexai
 from PIL import Image
 import base64
 import io
+import os
 import yaml
+
+
+cwd = os.getcwd()
+print(cwd)
+# config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+# background_image_location = os.path.join(os.path.dirname(__file__), "MASTER-STILL-Gen3_FrontAerial_Combo.jpg")
+
 
 # Configuration (load from YAML file)
 try:
-  with open("config.yaml","r") as f:
+  with open(cwd+'/'+'config.yaml',"r") as f:
     config = yaml.safe_load(f)
 except FileNotFoundError:
   print("Error: config.yaml file not found. Using default values.")
@@ -21,7 +29,6 @@ dataset_id = config.get("dataset_id")
 table_id = config.get("table_id")
 pdf_file_uri = config.get("pdf_file_uri")
 llm_model_name = config.get("llm_model_name")
-background_image_location=config.get("background_image_location")
 
 
 vertexai.init(project=project_id, location=location)
@@ -117,14 +124,14 @@ def set_page_background(img_file):
     background-image: url("data:image/png;base64,%s");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
     opacity: 0.85; /* Adjust opacity for light visibility */
     }
     </style>
     ''' % img_file_buffer
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-set_page_background(background_image_location)
+set_page_background(cwd+'/'+'MASTER-STILL-Gen3_FrontAerial_Combo.jpg')
 
 st.markdown("<h1 style='text-align: center; color: green;'>Sustainability Face-off: Formula E Gen 3 vs. Your Vehicle</h1>", unsafe_allow_html=True)
 
