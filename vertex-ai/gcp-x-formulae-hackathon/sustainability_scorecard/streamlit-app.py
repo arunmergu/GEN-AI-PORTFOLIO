@@ -21,6 +21,14 @@ try:
     config = yaml.safe_load(f)
 except FileNotFoundError:
   print("Error: config.yaml file not found. Using default values.")
+  config = {
+      "project_id": "genai-project-429612",
+      "location": "us-central1",
+      "dataset_id": "hackathon_data",
+      "table_id": "cars_co2_emission",
+      "pdf_file_uri": "gs://cloud-videos/gcp x formula e hackathon data/FormulaE2023Report-FINAL-.pdf",
+      "llm_model_name": "gemini-1.5-flash-001",
+  }
 
 
 project_id = config.get("project_id")
