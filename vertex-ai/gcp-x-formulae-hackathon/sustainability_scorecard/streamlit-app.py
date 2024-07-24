@@ -99,7 +99,7 @@ def get_make_and_models():
         A list of tuples, where each tuple contains (make, models).
     """
 
-    client = bigquery.Client(project=project_id)
+    client = bigquery.Client(project=project_id,credentials=credentials)
     query = f"""
     #standardSQL
     SELECT DISTINCT MAKE, STRING_AGG(MODEL, ', ') AS MODELS
