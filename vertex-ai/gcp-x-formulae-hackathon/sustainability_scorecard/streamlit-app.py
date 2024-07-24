@@ -7,7 +7,14 @@ import base64
 import io
 import os
 import yaml
+from google.oauth2 import service_account
 
+
+
+# Create API client.
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
 
 cwd = os.getcwd()
 print(cwd)
@@ -66,7 +73,7 @@ def query_bigquery(make, model):
         A dictionary containing car information or None if not found.
     """
 
-    client = bigquery.Client(project=project_id)
+    client = bigquery.Client(project=project_id,credentials=credentials)
     query = f"""
     SELECT YEAR, MAKE, MODEL, `VEHICLE CLASS`, ENGINE_SIZE, CYLINDERS, TRANSMISSION, FUEL AS FUEL_TYPE, FUEL_CONSUMPTION, CO2_EMISSIONS
     FROM `{project_id}.{dataset_id}.{table_id}`
