@@ -16,6 +16,8 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
+os.environ['GEMINI_API_KEY'] = st.secrets['API_KEY']
+
 cwd = os.getcwd()
 print(cwd)
 # config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
