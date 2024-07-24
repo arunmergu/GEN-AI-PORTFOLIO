@@ -2,3 +2,4 @@ vertexai
 google-cloud
 streamlit
 pyyaml
+google-cloud-aiplatform
