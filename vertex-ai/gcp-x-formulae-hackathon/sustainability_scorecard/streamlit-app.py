@@ -200,8 +200,8 @@ if compare_button:
         A concise summary of the overall sustainability performance of each car, highlighting key differences and strengths.
         """
 
-        pdf_file = Part.from_uri(pdf_file_uri, mime_type="application/pdf")
-        contents = [pdf_file, prompt]
+        #pdf_file = Part.from_uri(pdf_file_uri, mime_type="application/pdf")
+        contents = [ prompt]
         responses = llm_model.generate_content(contents) 
 
         st.write(responses.text, unsafe_allow_html=True)
