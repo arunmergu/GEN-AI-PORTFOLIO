@@ -180,31 +180,38 @@ if compare_button:
 
     if user_car_info:
 
-        prompt = f"""
-        Role: Cars Sustainability Metrics Analyst
 
-        Task: Conduct a comparative sustainability analysis between the Formula E Gen 3 model and {car_make}, {car_model} car.
+        try:
 
-        Data: {gen3_car_info}
 
-        Formula E Gen 3 car specification details below:
+            prompt = f"""
+            Role: Cars Sustainability Metrics Analyst
 
-        {car_make} , {car_model} car specifications.
-        Output: {user_car_info}
+            Task: Conduct a comparative sustainability analysis between the Formula E Gen 3 model and {car_make}, {car_model} car.
 
-        Also formula e gen 3 sustanability pdf report is given in context
+            Data: {gen3_car_info}
 
-        Also calculate a sustainability score and give me percentage.
+            Formula E Gen 3 car specification details below:
 
-        A tabular comparison of only key sustainability metrics for both cars.
-        A concise summary of the overall sustainability performance of each car, highlighting key differences and strengths.
-        """
+            {car_make} , {car_model} car specifications.
+            Output: {user_car_info}
 
-        pdf_file = Part.from_uri(pdf_file_uri, mime_type="application/pdf")
-        contents = [pdf_file, prompt]
-        responses = llm_model.generate_content(contents) 
+            Also formula e gen 3 sustanability pdf report is given in context
 
-        st.write(responses.text, unsafe_allow_html=True)
+            Also calculate a sustainability score and give me percentage.
+
+            A tabular comparison of only key sustainability metrics for both cars.
+            A concise summary of the overall sustainability performance of each car, highlighting key differences and strengths.
+            """
+
+            pdf_file = Part.from_uri(pdf_file_uri, mime_type="application/pdf")
+            contents = [pdf_file, prompt]
+            responses = llm_model.generate_content(contents) 
+
+            st.write(responses.text, unsafe_allow_html=True)
+        
+        except Exception as e:
+            st.error("Something went wrong")
 
     else:
         st.error("Car information not found in BigQuery.")
