@@ -48,7 +48,7 @@ pdf_file_uri = config.get("pdf_file_uri")
 llm_model_name = config.get("llm_model_name")
 
 
-vertexai.init(project=project_id, location=location)
+vertexai.init(project=project_id, location=location,credentials=credentials)
 
 llm_model = GenerativeModel(llm_model_name)
 
