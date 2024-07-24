@@ -10,7 +10,6 @@ import yaml
 from google.oauth2 import service_account
 
 
-
 # Create API client.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
@@ -19,9 +18,6 @@ credentials = service_account.Credentials.from_service_account_info(
 os.environ['GEMINI_API_KEY'] = st.secrets['API_KEY']
 
 cwd = os.getcwd()
-print(cwd)
-# config_file_path = os.path.join(os.path.dirname(__file__), "config.yaml")
-# background_image_location = os.path.join(os.path.dirname(__file__), "MASTER-STILL-Gen3_FrontAerial_Combo.jpg")
 
 
 # Configuration (load from YAML file)
@@ -30,15 +26,6 @@ try:
     config = yaml.safe_load(f)
 except FileNotFoundError:
   print("Error: config.yaml file not found. Using default values.")
-  config = {
-      "project_id": "genai-project-429612",
-      "location": "us-central1",
-      "dataset_id": "hackathon_data",
-      "table_id": "cars_co2_emission",
-      "pdf_file_uri": "gs://cloud-videos/gcp x formula e hackathon data/FormulaE2023Report-FINAL-.pdf",
-      "llm_model_name": "gemini-1.5-flash-001",
-  }
-
 
 project_id = config.get("project_id")
 location = config.get("location")
@@ -53,7 +40,7 @@ vertexai.init(project=project_id, location=location,credentials=credentials)
 llm_model = GenerativeModel(llm_model_name)
 
 
-# Sample Formula E Gen 3 info (replace with actual data retrieval)
+#  Formula E Gen 3 spec
 gen3_car_info = {
     "model": "formula e gen 3",
     "height_mm": 1023.4,
@@ -123,23 +110,8 @@ car_model_options,make_list=get_make_and_models()
 
 
 
-
-
-#st.title("Car Sustainability Comparison")
 st.set_page_config(layout="wide")
 
-st.markdown(
-    """
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 def get_base64_of_image(img):
     with io.BytesIO() as buffer:
@@ -149,7 +121,6 @@ def get_base64_of_image(img):
 def set_page_background(img_file):
     img = Image.open(img_file)
     # Adjust image brightness if needed (e.g., using PIL's image enhancement functions)
-    # img = enhance_brightness(img)  # Replace with your brightness adjustment function
     img_file_buffer = get_base64_of_image(img)
     page_bg_img = '''
     <style>
