@@ -123,6 +123,11 @@ car_model_options,make_list=get_make_and_models()
 
 
 
+
+
+#st.title("Car Sustainability Comparison")
+st.set_page_config(layout="wide")
+
 # Add custom CSS to hide the GitHub icon
 hide_github_icon = """
 #GithubIcon {
@@ -130,9 +135,6 @@ hide_github_icon = """
 }
 """
 st.markdown(hide_github_icon, unsafe_allow_html=True)
-
-#st.title("Car Sustainability Comparison")
-st.set_page_config(layout="wide")
 
 def get_base64_of_image(img):
     with io.BytesIO() as buffer:
